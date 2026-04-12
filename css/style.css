@@ -64,9 +64,11 @@
 .forum-program,
 .forum-registration,
 .forum-location,
-.forum-footer,
 .forum-invitation-hero {
   font-family: 'Escoredream', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+.forum-footer {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 /* ===== Reset / Base ===== */
@@ -253,6 +255,7 @@ body { margin: 0; padding: 0; }
   text-align: center;
 }
 .forum-hero-tag {
+  font-family: 'Escoredream', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   font-size: 30px;
   font-weight: 700;
   color: #fff;
@@ -935,7 +938,7 @@ body { margin: 0; padding: 0; }
   margin: 0 auto;
 }
 .forum-footer-host {
-  font-size: 24px;
+  font-size: 28px;
   margin-bottom: 24px;
   display: flex;
   align-items: center;
@@ -959,9 +962,10 @@ body { margin: 0; padding: 0; }
 .forum-footer-host strong {
   font-weight: 700;
 }
+.forum-page a.forum-footer-privacy,
 .forum-footer-privacy {
   display: inline-block;
-  color: #ff5252;
+  color: #ff5757;
   font-weight: 600;
   font-size: 18px;
   margin-bottom: 20px;
