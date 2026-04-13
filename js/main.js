@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Registration form — Google Apps Script 연동 (iframe POST 방식)
-  var GAS_URL = 'https://script.google.com/macros/s/AKfycbzY07jyeL-J6XHeDlZLE6w88NwLVKPgHcQDWji8ztIfO09jqYj3ME3RpXr19NHHix7M/exec';
+  var GAS_URL = 'https://script.google.com/macros/s/AKfycbxbYRHNwwJi_T4WE_DXBlIHKDUO18MnomyRJIa_APFxl6_1ap2uZXG49dunZW1uK5EQ/exec';
 
   var regForm = document.getElementById('registrationForm');
   if (regForm) {
