@@ -1,4 +1,27 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // Sponsor list — insert middle dots between items on the same line
+  var sponsorList = document.querySelector('.forum-hero-orgs .sponsor-list');
+  if (sponsorList) {
+    var updateDots = function() {
+      var items = sponsorList.querySelectorAll(':scope > span');
+      for (var i = 0; i < items.length; i++) {
+        var curr = items[i];
+        var next = items[i + 1];
+        if (next && curr.offsetTop === next.offsetTop) {
+          curr.classList.add('has-dot');
+        } else {
+          curr.classList.remove('has-dot');
+        }
+      }
+    };
+    updateDots();
+    window.addEventListener('resize', updateDots);
+    // Re-run after fonts load to catch width shifts
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(updateDots);
+    }
+  }
+
   // Sticky header — collapse to single row on scroll
   var header = document.querySelector('.forum-header');
   var onScroll = function() {
@@ -70,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Registration form — Google Apps Script 연동 (iframe POST 방식)
-  var GAS_URL = 'https://script.google.com/macros/s/AKfycbytBBvdnMy39UW06glgn6VjU7sSVEny4noeMT00Hlb3YxPTLJX_Q0BJ1-6dAImOHr6h/exec';
+  var GAS_URL = 'https://script.google.com/macros/s/AKfycbzHRcREVn8NG0jnoqppUaME5p1v8oIBfeOM6ltlhY3cMvqYsibJ36R0GS-mSY-H9g3s/exec';
 
   var regForm = document.getElementById('registrationForm');
   if (regForm) {

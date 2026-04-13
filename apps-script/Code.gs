@@ -134,24 +134,3 @@ function _json(obj) {
     .createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
 }
-
-/* ========== 테스트 유틸 ==========
- * Apps Script 에디터에서 _test 함수를 선택하고 실행하면
- * 샘플 데이터가 시트에 기록되고 알림 메일이 발송되는지 확인 가능.
- */
-function _test() {
-  var fakeEvent = {
-    parameter: {
-      formType: '포럼사전등록',
-      name: '홍길동',
-      org: '한국금융신문',
-      rank: '기자',
-      tel: '010-0000-0000',
-      email: 'test@example.com',
-      question: '[김병환] AI 금융 정책 방향은?',
-      userAgent: 'test-runner'
-    }
-  };
-  var res = doPost(fakeEvent);
-  console.log(res.getContent());
-}
