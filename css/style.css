@@ -1654,9 +1654,10 @@ body.forum-modal-open {
   .forum-consent-check { font-size: 14px; margin: 24px 0; }
   .forum-form-section { margin-top: 32px; padding-top: 32px; }
   .forum-form-section:has(+ .forum-form-actions) { padding-bottom: 32px; }
-  .forum-form-section h3 { font-size: 22px; margin-bottom: 20px; }
+  .forum-form-section h3 { font-size: 22px; margin-bottom: 20px; text-align: center; }
   .forum-form-grid { gap: 24px; }
   .forum-form-row { flex-direction: column; gap: 20px; }
+  .forum-form-field[aria-hidden="true"] { display: none; }
   .forum-form-field {
     grid-template-columns: 1fr;
     gap: 6px;
