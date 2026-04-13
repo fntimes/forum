@@ -30,7 +30,7 @@ var NOTIFY_EMAILS = [];  // 예: ['forum@fntimes.com']
 var NOTIFY_SUBJECT_PREFIX = '[2026 한국금융미래포럼] 사전등록';
 
 var HEADERS = [
-  '제출일시', '성명', '소속', '직급', '전화번호', '이메일', '사전질문'
+  '제출일시', '성명', '소속', '직급', '전화번호', '이메일', '사전질문', '기기'
 ];
 
 /* ========== 엔드포인트 ========== */
@@ -59,7 +59,8 @@ function doPost(e) {
       p.rank     || '',
       p.tel      || '',
       p.email    || '',
-      p.question || ''
+      p.question || '',
+      p.device   || ''
     ]);
 
     _sendNotification(p);

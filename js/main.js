@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Registration form — Google Apps Script 연동 (iframe POST 방식)
-  var GAS_URL = 'https://script.google.com/macros/s/AKfycbxbYRHNwwJi_T4WE_DXBlIHKDUO18MnomyRJIa_APFxl6_1ap2uZXG49dunZW1uK5EQ/exec';
+  var GAS_URL = 'https://script.google.com/macros/s/AKfycbzMEwBFLbDtrgdgx0CtyYqOiMrcxnmqhukYIS2Iaazr3Fy7Eo3KSjarmZ_jpWjsI6XP/exec';
 
   var regForm = document.getElementById('registrationForm');
   if (regForm) {
@@ -135,7 +135,8 @@ document.addEventListener('DOMContentLoaded', function () {
         rank:     document.getElementById('f-rank').value,
         tel:      document.getElementById('f-tel').value,
         email:    document.getElementById('f-email').value,
-        question: document.getElementById('f-question').value
+        question: document.getElementById('f-question').value,
+        device:   /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '') ? '모바일' : 'PC'
       };
 
       var iframe = document.createElement('iframe');
