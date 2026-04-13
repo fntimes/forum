@@ -1358,7 +1358,7 @@ body.forum-modal-open {
 
 .forum-invitation-msg {
   position: relative;
-  padding: 110px 40px 130px;
+  padding: 72px 40px 130px;
   color: #fff;
   background-color: #fff;
   background-position: center -240px;
@@ -1797,8 +1797,8 @@ body.forum-modal-open {
 
   /* === INVITATION MESSAGE === */
   .forum-invitation-msg {
-    padding: 72px 20px 80px;
-    background-position: center -80px;
+    padding: 40px 20px 80px;
+    background-position: center -160px;
   }
   .forum-invitation-msg-top {
     flex-direction: column;
@@ -1811,7 +1811,7 @@ body.forum-modal-open {
   .forum-invitation-photo {
     flex: 0 0 auto;
   }
-  .forum-invitation-photo img { width: 260px; height: 230px; }
+  .forum-invitation-photo img { width: 360px; height: 315px; }
   .forum-invitation-msg-headline { margin: 24px 0 0; text-align: center; }
   .forum-invitation-msg-headline .msg-lead {
     font-size: 18px;
@@ -1853,5 +1853,5 @@ body.forum-modal-open {
   .forum-partners-grid { grid-template-columns: repeat(2, 1fr); }
 
   /* Invitation photo */
-  .forum-invitation-photo img { width: 220px; height: 200px; }
+  .forum-invitation-photo img { width: 320px; height: 285px; }
 }
