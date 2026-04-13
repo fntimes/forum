@@ -97,6 +97,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var regForm = document.getElementById('registrationForm');
   if (regForm) {
+    regForm.addEventListener('reset', function() {
+      // reset 이벤트는 기본 reset 이후 폼 초기화가 끝난 다음 프레임에 스크롤
+      requestAnimationFrame(function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
     regForm.addEventListener('submit', function(e) {
       e.preventDefault();
 
