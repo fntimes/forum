@@ -4,6 +4,10 @@ const path = require('path');
 const ROOT = __dirname;
 const SRC = path.join(ROOT, 'src');
 const DIST = path.join(ROOT, 'dist');
+// BASE_PATH rewrites absolute asset/link paths at build time. Set to '/forum'
+// when publishing to https://<org>.github.io/forum/; leave empty for root
+// (custom domain) deployment. Trailing slashes are normalized.
+const BASE_PATH = (process.env.BASE_PATH || '').replace(/\/$/, '');
 
 // 1. Read all partials
 const partialsDir = path.join(SRC, 'partials');
@@ -65,6 +69,12 @@ function buildPage(pagePath) {
   html = html.replace(/\{\{heroTitle\}\}/g, meta.heroTitle || '');
   html = html.replace(/\{\{extraScripts\}\}/g, meta.extraScripts || '');
 
+  // Rewrite absolute paths to include BASE_PATH (for /forum/ subpath hosting)
+  if (BASE_PATH) {
+    html = html.replace(/(href|src)="\/(?!\/)/g, `$1="${BASE_PATH}/`);
+    html = html.replace(/url\(\/(?!\/)/g, `url(${BASE_PATH}/`);
+  }
+
   // Write output
   const outPath = path.join(DIST, meta.outputPath);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
@@ -113,7 +123,11 @@ function build() {
     }
   });
 
-  ['favicon.ico', 'CNAME', 'robots.txt'].forEach(file => {
+  // CNAME is skipped when BASE_PATH is set (serving at <user>.github.io/<repo>/
+  // rather than at a custom apex/subdomain).
+  const rootFiles = ['favicon.ico', 'robots.txt'];
+  if (!BASE_PATH) rootFiles.push('CNAME');
+  rootFiles.forEach(file => {
     const src = path.join(ROOT, file);
     if (fs.existsSync(src)) {
       fs.copyFileSync(src, path.join(DIST, file));
