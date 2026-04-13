@@ -75,7 +75,7 @@
 body { margin: 0; padding: 0; }
 .forum-page * { margin: 0; padding: 0; box-sizing: border-box; }
 .forum-page {
-  background: #fff;
+  background: rgb(0, 53, 122);
   color: #1a1a2e;
   line-height: 1.6;
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -180,9 +180,7 @@ body { margin: 0; padding: 0; }
 
 /* ===== Scrolled state — collapse to one row ===== */
 .forum-header.scrolled {
-  background: rgba(0, 53, 122, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgb(0, 53, 122);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 .forum-header.scrolled .forum-header-inner {
@@ -212,7 +210,7 @@ body { margin: 0; padding: 0; }
   gap: 14px;
 }
 .forum-header.scrolled .forum-header-utility img {
-  height: 18px;
+  height: 25px;
 }
 
 /* ============================================================
@@ -444,7 +442,7 @@ body { margin: 0; padding: 0; }
 .forum-hero-orgs .sponsor-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 24px;
+  gap: 4px 40px;
   margin: 0;
   color: #fff;
   font-size: 18px;
@@ -1022,7 +1020,7 @@ body { margin: 0; padding: 0; }
 }
 .forum-modal[aria-hidden="false"] {
   display: flex;
-  animation: forumModalFadeIn 0.2s ease-out;
+  animation: forumModalFadeIn 0.3s ease;
 }
 @keyframes forumModalFadeIn {
   from { opacity: 0; }
