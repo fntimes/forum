@@ -1087,7 +1087,7 @@ body { margin: 0; padding: 0; }
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 800px;
+  max-width: 660px;
   max-height: calc(100vh - 40px);
   background: #000;
   border-radius: 16px;
@@ -1101,17 +1101,17 @@ body { margin: 0; padding: 0; }
 }
 .forum-modal-top {
   display: flex;
-  gap: 32px;
-  padding: 44px 44px 24px;
+  gap: 24px;
+  padding: 36px 36px 20px;
   align-items: stretch;
 }
 .forum-modal-close {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 12px;
+  right: 12px;
   z-index: 2;
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   padding: 0;
   background: transparent;
   border: none;
@@ -1124,23 +1124,23 @@ body { margin: 0; padding: 0; }
 }
 .forum-modal-close:hover { opacity: 0.7; }
 .forum-modal-close svg {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
 }
 
 .forum-modal-left {
-  flex: 0 0 300px;
+  flex: 0 0 230px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .forum-modal-badge {
   display: inline-block;
-  padding: 4px 48px;
+  padding: 4px 36px;
   border-radius: 999px;
   background: rgb(28, 86, 200);
   color: #fff;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 700;
   margin-bottom: 8px;
   letter-spacing: 2px;
@@ -1149,7 +1149,7 @@ body { margin: 0; padding: 0; }
   display: none;
 }
 .forum-modal-photo {
-  width: 300px;
+  width: 230px;
   height: 100%;
 }
 .forum-modal-photo img {
@@ -1158,19 +1158,19 @@ body { margin: 0; padding: 0; }
   height: 100%;
   object-fit: cover;
   object-position: top;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 .forum-modal-name {
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 600;
   color: #fff;
   margin: 0 0 4px;
   letter-spacing: 2px;
 }
 .forum-modal-role {
-  font-size: 17px;
+  font-size: 14px;
   color: rgba(255, 255, 255, 1);
-  margin: 0 0 24px;
+  margin: 0 0 18px;
   line-height: 1.5;
 }
 
@@ -1188,9 +1188,9 @@ body { margin: 0; padding: 0; }
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.95);
-  line-height: 1.8;
+  line-height: 1.75;
   width: 100%;
 }
 .forum-modal-bio li {
@@ -1208,10 +1208,10 @@ body { margin: 0; padding: 0; }
 }
 
 .forum-modal-intro {
-  margin: 8px 44px 40px;
-  padding: 24px;
-  font-size: 16px;
-  line-height: 1.8;
+  margin: 6px 36px 32px;
+  padding: 18px 20px;
+  font-size: 14px;
+  line-height: 1.75;
   color: rgba(255, 255, 255, 0.92);
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
