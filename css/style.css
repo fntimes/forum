@@ -1087,7 +1087,7 @@ body { margin: 0; padding: 0; }
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 660px;
+  max-width: 800px;
   max-height: calc(100vh - 40px);
   background: #000;
   border-radius: 16px;
@@ -1101,17 +1101,17 @@ body { margin: 0; padding: 0; }
 }
 .forum-modal-top {
   display: flex;
-  gap: 24px;
-  padding: 36px 36px 20px;
+  gap: 32px;
+  padding: 44px 44px 24px;
   align-items: stretch;
 }
 .forum-modal-close {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 14px;
+  right: 14px;
   z-index: 2;
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   background: transparent;
   border: none;
@@ -1124,23 +1124,23 @@ body { margin: 0; padding: 0; }
 }
 .forum-modal-close:hover { opacity: 0.7; }
 .forum-modal-close svg {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
 }
 
 .forum-modal-left {
-  flex: 0 0 230px;
+  flex: 0 0 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .forum-modal-badge {
   display: inline-block;
-  padding: 4px 36px;
+  padding: 4px 48px;
   border-radius: 999px;
   background: rgb(28, 86, 200);
   color: #fff;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 700;
   margin-bottom: 8px;
   letter-spacing: 2px;
@@ -1149,7 +1149,7 @@ body { margin: 0; padding: 0; }
   display: none;
 }
 .forum-modal-photo {
-  width: 230px;
+  width: 300px;
   height: 100%;
 }
 .forum-modal-photo img {
@@ -1158,19 +1158,19 @@ body { margin: 0; padding: 0; }
   height: 100%;
   object-fit: cover;
   object-position: top;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 .forum-modal-name {
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 600;
   color: #fff;
   margin: 0 0 4px;
   letter-spacing: 2px;
 }
 .forum-modal-role {
-  font-size: 14px;
+  font-size: 17px;
   color: rgba(255, 255, 255, 1);
-  margin: 0 0 18px;
+  margin: 0 0 24px;
   line-height: 1.5;
 }
 
@@ -1188,9 +1188,9 @@ body { margin: 0; padding: 0; }
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.95);
-  line-height: 1.75;
+  line-height: 1.8;
   width: 100%;
 }
 .forum-modal-bio li {
@@ -1208,10 +1208,10 @@ body { margin: 0; padding: 0; }
 }
 
 .forum-modal-intro {
-  margin: 6px 36px 32px;
-  padding: 18px 20px;
-  font-size: 14px;
-  line-height: 1.75;
+  margin: 8px 44px 40px;
+  padding: 24px;
+  font-size: 16px;
+  line-height: 1.8;
   color: rgba(255, 255, 255, 0.92);
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
@@ -1229,30 +1229,45 @@ body.forum-modal-open {
 /* Modal responsive */
 @media (max-width: 720px) {
   .forum-modal-content {
-    max-width: 480px;
+    max-width: 440px;
   }
   .forum-modal-top {
     flex-direction: column;
-    padding: 20px 20px 20px;
-    gap: 18px;
+    padding: 24px 20px 16px;
+    gap: 14px;
     align-items: center;
   }
+  .forum-modal-left { flex: 0 0 auto; }
+  .forum-modal-photo { width: 150px; height: 195px; }
+  .forum-modal-photo img { border-radius: 6px; }
   .forum-modal-right {
     align-items: center;
     text-align: center;
     width: 100%;
   }
+  .forum-modal-badge {
+    padding: 3px 22px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .forum-modal-name { font-size: 20px; letter-spacing: 1px; margin-bottom: 2px; }
+  .forum-modal-role { font-size: 13px; margin-bottom: 12px; line-height: 1.4; }
   .forum-modal-bio {
     display: inline-block;
     width: auto;
+    font-size: 12px;
+    line-height: 1.6;
     text-align: left;
     margin: 0 auto;
   }
+  .forum-modal-bio li { padding-left: 11px; }
   .forum-modal-intro {
-    margin: 4px 16px 24px;
-    padding: 18px;
+    margin: 0 20px 20px;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.65;
   }
-  .forum-modal-name { font-size: 22px; }
   .forum-modal { padding: 12px; }
   .forum-modal-close {
     position: fixed;
