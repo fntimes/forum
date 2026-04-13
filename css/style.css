@@ -1267,7 +1267,7 @@ body.forum-modal-open {
 .forum-invitation-hero {
   position: relative;
   margin-top: 100px;
-  min-height: 360px;
+  min-height: 240px;
   color: #fff;
   overflow: hidden;
   display: flex;
@@ -1293,7 +1293,7 @@ body.forum-modal-open {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 60px 48px;
+  padding: 36px 48px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1302,27 +1302,27 @@ body.forum-modal-open {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 .forum-invitation-hero .forum-hero-tag {
-  font-size: 32px;
+  font-size: 22px;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
   text-align: left;
 }
 .forum-invitation-hero .forum-hero-title {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
   margin: 0;
   width: auto;
   max-width: none;
   flex-wrap: nowrap;
 }
 .forum-invitation-hero .forum-hero-title img {
-  height: 72px;
+  height: 50px;
   width: auto;
   max-width: none;
 }
@@ -1331,10 +1331,10 @@ body.forum-modal-open {
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  gap: 18px;
-  font-size: 26px;
+  gap: 14px;
+  font-size: 18px;
   font-weight: 700;
-	letter-spacing: -1px;
+	letter-spacing: -0.5px;
 }
 .forum-invitation-hero .forum-hero-meta .sep {
   color: rgba(255, 255, 255, 0.5);
@@ -1345,7 +1345,7 @@ body.forum-modal-open {
   position: relative;
   padding: 110px 40px 130px;
   color: #fff;
-  background-color: transparent;
+  background-color: #fff;
   background-position: center -240px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1756,27 +1756,29 @@ body.forum-modal-open {
   .forum-footer-logo img { height: 28px; }
 
   /* === INVITATION HERO === */
-  .forum-invitation-hero { margin-top: 0; min-height: 360px; }
-  .forum-invitation-hero-inner { padding: 128px 20px 40px; }
-  .forum-invitation-title-block { margin-bottom: 24px; align-items: center; }
+  .forum-invitation-hero { margin-top: 0; min-height: 200px; }
+  .forum-invitation-hero-inner { padding: 90px 20px 24px; }
+  .forum-invitation-title-block { margin-bottom: 14px; align-items: center; }
   .forum-invitation-hero .forum-hero-tag {
-    font-size: 20px;
-    margin-bottom: 14px;
+    font-size: 15px;
+    margin-bottom: 8px;
     text-align: center;
   }
   .forum-invitation-hero .forum-hero-title {
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row;
+    gap: 8px;
     align-items: center;
   }
-  .forum-invitation-hero .forum-hero-title img { height: 40px; }
+  .forum-invitation-hero .forum-hero-title img { height: 26px; }
   .forum-invitation-hero .forum-hero-meta {
-    flex-direction: column;
-    gap: 4px;
-    font-size: 15px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 10px;
+    font-size: 12px;
     text-align: center;
   }
-  .forum-invitation-hero .forum-hero-meta .sep { display: none; }
+  .forum-invitation-hero .forum-hero-meta .sep { display: inline; }
 
   /* === INVITATION MESSAGE === */
   .forum-invitation-msg {

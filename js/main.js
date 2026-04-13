@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // Hero background video — pick mobile or desktop source based on viewport
+  document.querySelectorAll('.forum-hero-bg video[data-src-desktop]').forEach(function(v) {
+    var mobile  = v.getAttribute('data-src-mobile');
+    var desktop = v.getAttribute('data-src-desktop');
+    var src = (window.matchMedia('(max-width: 720px)').matches && mobile) ? mobile : desktop;
+    v.src = src;
+    v.load();
+    var playPromise = v.play();
+    if (playPromise && playPromise.catch) playPromise.catch(function() { /* autoplay blocked — ignore */ });
+  });
+
   // Sponsor list — insert middle dots between items on the same line
   var sponsorList = document.querySelector('.forum-hero-orgs .sponsor-list');
   if (sponsorList) {
