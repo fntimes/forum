@@ -30,11 +30,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          # 임시: 커스텀 도메인(summit.fntimes.com) 연결 전까지
-          # https://fntimes.github.io/forum/ 경로에서 동작하도록 자산 경로에 prefix.
-          # 도메인 연결되면 이 env 블록을 삭제하고 CNAME 파일 복원 필요.
-          BASE_PATH: /forum
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
