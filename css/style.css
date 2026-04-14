@@ -81,6 +81,7 @@ body { margin: 0; padding: 0; }
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   letter-spacing: -0.5px;
+  display: flow-root;
 }
 .forum-page img { display: block; max-width: 100%; height: auto; }
 .forum-page a { color: inherit; text-decoration: none; }
@@ -1234,7 +1235,7 @@ body.forum-modal-open {
   .forum-modal-top {
     flex-direction: column;
     padding: 24px 20px 16px;
-    gap: 14px;
+    gap: 20px;
     align-items: center;
   }
   .forum-modal-left { flex: 0 0 auto; }
@@ -1249,10 +1250,10 @@ body.forum-modal-open {
     padding: 3px 22px;
     font-size: 12px;
     letter-spacing: 1px;
-    margin-bottom: 6px;
+    margin-bottom: 12px;
   }
   .forum-modal-name { font-size: 20px; letter-spacing: 1px; margin-bottom: 2px; }
-  .forum-modal-role { font-size: 13px; margin-bottom: 12px; line-height: 1.4; }
+  .forum-modal-role { font-size: 13px; margin-bottom: 20px; line-height: 1.4; }
   .forum-modal-bio {
     display: inline-block;
     width: auto;
@@ -1281,8 +1282,7 @@ body.forum-modal-open {
    ============================================================ */
 .forum-invitation-hero {
   position: relative;
-  margin-top: 100px;
-  min-height: 240px;
+  margin-top: 140px;
   color: #fff;
   overflow: hidden;
   display: flex;
@@ -1308,7 +1308,7 @@ body.forum-modal-open {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 36px 48px;
+  padding: 32px 48px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1771,8 +1771,8 @@ body.forum-modal-open {
   .forum-footer-logo img { height: 28px; }
 
   /* === INVITATION HERO === */
-  .forum-invitation-hero { margin-top: 0; min-height: 200px; }
-  .forum-invitation-hero-inner { padding: 90px 20px 24px; }
+  .forum-invitation-hero { margin-top: 110px; }
+  .forum-invitation-hero-inner { padding: 18px 20px; }
   .forum-invitation-title-block { margin-bottom: 14px; align-items: center; }
   .forum-invitation-hero .forum-hero-tag {
     font-size: 15px;
