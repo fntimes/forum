@@ -240,6 +240,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  function maskEmail(email) {
+    if (!email) return '';
+    var at = email.indexOf('@');
+    if (at < 0) return email;
+    var local = email.slice(0, at);
+    var domain = email.slice(at);
+    var keep = Math.min(3, Math.max(1, local.length - 1));
+    return local.slice(0, keep) + '***' + domain;
+  }
+
   function renderLookupResult(data) {
     var result = document.getElementById('lookupResult');
     if (!data || !data.ok || !data.record) {
@@ -252,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
     result.querySelector('[data-field="org"]').textContent   = r.org   || '';
     result.querySelector('[data-field="rank"]').textContent  = r.rank  || '';
     result.querySelector('[data-field="tel"]').textContent   = formatPhone(r.tel || '');
-    result.querySelector('[data-field="email"]').textContent = r.email || '';
+    result.querySelector('[data-field="email"]').textContent = maskEmail(r.email || '');
     result.querySelector('[data-field="question"]').textContent = r.question && r.question.trim() ? r.question : '질문내용이 없습니다.';
     result.hidden = false;
     // 조회 성공 시 입력 폼은 감춤

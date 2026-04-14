@@ -851,6 +851,8 @@ body { margin: 0; padding: 0; }
   padding: 24px 32px;
   font-size: 15px;
   line-height: 1.8;
+  max-height: 200px;
+  overflow-y: auto;
 }
 .forum-consent-box .consent-intro {
   margin-bottom: 18px;
@@ -859,6 +861,16 @@ body { margin: 0; padding: 0; }
   margin-bottom: 16px;
 }
 .forum-consent-box .consent-label {
+  font-weight: 600;
+}
+.forum-consent-box .consent-dashed {
+  position: relative;
+  padding-left: 14px;
+}
+.forum-consent-box .consent-dashed::before {
+  content: "-";
+  position: absolute;
+  left: 0;
   font-weight: 600;
 }
 .forum-consent-box .consent-sublist {
@@ -1842,7 +1854,26 @@ body.forum-modal-open {
   /* === REGISTRATION === */
   .forum-registration-inner { padding: 0; }
   .forum-consent-title { font-size: 16px; }
-  .forum-consent-box { padding: 18px 20px; font-size: 13px; line-height: 1.7; }
+  .forum-consent-box { padding: 18px 20px; font-size: 13px; line-height: 1.7; max-height: 190px; }
+
+  /* Tabs */
+  .forum-registration-tabs { margin-bottom: 32px; }
+  .forum-registration-tab { padding: 16px 8px; font-size: 16px; letter-spacing: 0; }
+
+  /* Lookup panel */
+  .forum-registration-panel[data-panel="lookup"] .forum-form-section h3 { margin-bottom: 28px; }
+  .forum-registration-panel[data-panel="lookup"] .forum-form-grid { padding-bottom: 16px; }
+
+  /* Lookup result */
+  .forum-lookup-result { margin-top: 28px; }
+  .forum-lookup-section { padding: 24px 0; }
+  .forum-lookup-section h3 { font-size: 20px; padding-bottom: 10px; }
+  .forum-lookup-table { font-size: 14px; }
+  .forum-lookup-table > div {
+    grid-template-columns: 90px 1fr;
+    padding: 12px 0;
+  }
+  .forum-lookup-question { font-size: 14px; padding: 12px 0 28px; }
   .forum-consent-check { font-size: 14px; margin: 24px 0; }
   .forum-form-section { margin-top: 32px; padding-top: 32px; }
   .forum-form-section:has(+ .forum-form-actions) { padding-bottom: 32px; }
