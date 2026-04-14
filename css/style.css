@@ -759,6 +759,58 @@ body { margin: 0; padding: 0; }
   font-size: 15px;
   line-height: 1.8;
 }
+.forum-consent-box .consent-intro {
+  margin-bottom: 18px;
+}
+.forum-consent-box .consent-section {
+  margin-bottom: 16px;
+}
+.forum-consent-box .consent-label {
+  font-weight: 600;
+}
+.forum-consent-box .consent-sublist {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0 16px;
+}
+.forum-consent-box .consent-sublist li {
+  padding-left: 0;
+}
+.forum-consent-box .consent-items {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px;
+}
+.forum-consent-box .consent-items li {
+  position: relative;
+  padding-left: 14px;
+}
+.forum-consent-box .consent-items li::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+}
+.forum-consent-box .consent-notes {
+  list-style: none;
+  padding: 14px 0 0;
+  margin: 0;
+  border-top: 1px dashed #b5b5b5;
+  color: #5a5a5a;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.forum-consent-box .consent-notes li {
+  position: relative;
+  padding-left: 14px;
+}
+.forum-consent-box .consent-notes li + li {
+  margin-top: 6px;
+}
+.forum-consent-box .consent-notes li::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+}
 .forum-consent-check {
   display: flex;
   align-items: center;
