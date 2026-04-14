@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Registration form — Google Apps Script 연동 (iframe POST 방식)
-  var GAS_URL = 'https://script.google.com/macros/s/AKfycbzMEwBFLbDtrgdgx0CtyYqOiMrcxnmqhukYIS2Iaazr3Fy7Eo3KSjarmZ_jpWjsI6XP/exec';
+  var GAS_URL = 'https://script.google.com/macros/s/AKfycbxH2Dt192B4VVwIiPUuJIx7wQKtJeIZzGJ1ja4beXJO1O9VW8EVXOSmcOqroXFA4bCQ/exec';
 
   // 전화번호 자동 포매팅 — 휴대폰·서울(02)·타 지역·대표번호(15XX) 지원
   function formatPhone(raw) {
@@ -136,15 +136,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (trailingHyphen && out && !/-$/.test(out)) out += '-';
     return out;
   }
-  var telInput = document.getElementById('f-tel');
-  if (telInput) {
-    telInput.setAttribute('inputmode', 'tel');
-    telInput.addEventListener('input', function() {
+  function attachPhoneFormatter(input) {
+    if (!input) return;
+    input.setAttribute('inputmode', 'tel');
+    input.addEventListener('input', function() {
       var selBefore = this.selectionStart;
       var prev = this.value;
-      var prevBefore = prev.slice(0, selBefore);
-      var digitsBefore = prevBefore.replace(/\D/g, '').length;
-      // 사용자가 방금 '-'를 입력했다면 커서를 하이픈 뒤로 보내야 함
+      var digitsBefore = prev.slice(0, selBefore).replace(/\D/g, '').length;
       var justTypedHyphen = selBefore > 0 && prev[selBefore - 1] === '-';
 
       var formatted = formatPhone(prev);
@@ -153,7 +151,6 @@ document.addEventListener('DOMContentLoaded', function () {
       var totalDigits = formatted.replace(/\D/g, '').length;
       var newPos;
       if (justTypedHyphen && digitsBefore === totalDigits && /-$/.test(formatted)) {
-        // 끝에 '-'가 유지된 경우 커서를 맨 뒤로
         newPos = formatted.length;
       } else {
         var count = 0;
@@ -162,14 +159,104 @@ document.addEventListener('DOMContentLoaded', function () {
           if (/\d/.test(formatted[i])) count++;
           if (count === digitsBefore) { newPos = i + 1; break; }
         }
-        // 커서가 하이픈 바로 앞인데 사용자가 방금 하이픈을 쳤다면 하이픈 뒤로 건너뛰기
         if (justTypedHyphen && formatted[newPos] === '-') newPos++;
       }
       this.selectionStart = this.selectionEnd = newPos;
     });
-    telInput.addEventListener('blur', function() {
+    input.addEventListener('blur', function() {
       this.value = this.value.replace(/-+$/, '');
     });
+  }
+  attachPhoneFormatter(document.getElementById('f-tel'));
+  attachPhoneFormatter(document.getElementById('lk-tel'));
+
+  // ===== 탭 전환 =====
+  var tabs = document.querySelectorAll('.forum-registration-tab');
+  var panels = document.querySelectorAll('.forum-registration-panel');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var name = tab.getAttribute('data-tab');
+      tabs.forEach(function(t) {
+        var on = t === tab;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      panels.forEach(function(p) {
+        p.hidden = p.getAttribute('data-panel') !== name;
+      });
+      // 확인 탭 재진입 시 입력 폼 복원 + 이전 결과 숨김
+      if (name === 'lookup') {
+        var lf = document.getElementById('lookupForm');
+        var lr = document.getElementById('lookupResult');
+        if (lf) { lf.hidden = false; lf.reset(); }
+        if (lr) lr.hidden = true;
+      }
+    });
+  });
+
+  // ===== 참가신청 확인 (JSONP 조회) =====
+  var lookupForm = document.getElementById('lookupForm');
+  if (lookupForm) {
+    lookupForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var name = document.getElementById('lk-name').value.trim();
+      var tel = document.getElementById('lk-tel').value.replace(/\D/g, '');
+      if (!name) { alert('성명을 입력해주세요.'); return; }
+      if (tel.length < 8 || tel.length > 11) { alert('전화번호를 올바르게 입력해주세요.'); return; }
+
+      var submitBtn = lookupForm.querySelector('.btn-submit');
+      var originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner"></span>조회 중...';
+
+      var cbName = 'forumLookupCb_' + Date.now();
+      var script = document.createElement('script');
+      var timer = setTimeout(function() {
+        cleanup();
+        alert('조회에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      }, 15000);
+
+      function cleanup() {
+        clearTimeout(timer);
+        try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
+        if (script.parentNode) script.parentNode.removeChild(script);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+
+      window[cbName] = function(data) {
+        cleanup();
+        renderLookupResult(data);
+      };
+
+      var url = GAS_URL
+        + '?action=lookup'
+        + '&name=' + encodeURIComponent(name)
+        + '&tel=' + encodeURIComponent(tel)
+        + '&callback=' + cbName;
+      script.src = url;
+      script.onerror = function() { cleanup(); alert('조회 서버에 연결하지 못했습니다.'); };
+      document.body.appendChild(script);
+    });
+  }
+
+  function renderLookupResult(data) {
+    var result = document.getElementById('lookupResult');
+    if (!data || !data.ok || !data.record) {
+      alert('등록 정보를 찾을 수 없습니다. 성명과 전화번호를 확인해주세요.');
+      result.hidden = true;
+      return;
+    }
+    var r = data.record;
+    result.querySelector('[data-field="name"]').textContent  = r.name  || '';
+    result.querySelector('[data-field="org"]').textContent   = r.org   || '';
+    result.querySelector('[data-field="rank"]').textContent  = r.rank  || '';
+    result.querySelector('[data-field="tel"]').textContent   = formatPhone(r.tel || '');
+    result.querySelector('[data-field="email"]').textContent = r.email || '';
+    result.querySelector('[data-field="question"]').textContent = r.question && r.question.trim() ? r.question : '질문내용이 없습니다.';
+    result.hidden = false;
+    // 조회 성공 시 입력 폼은 감춤
+    if (lookupForm) lookupForm.hidden = true;
   }
 
   var regForm = document.getElementById('registrationForm');
@@ -221,13 +308,15 @@ document.addEventListener('DOMContentLoaded', function () {
         submitBtn.innerHTML = originalText;
         return;
       }
+      // 앞자리 0 보존 및 가독성을 위해 포맷(하이픈 포함) 형태로 저장
+      var telFormatted = formatPhone(telDigits).replace(/-+$/, '');
 
       var data = {
         formType: '포럼사전등록',
         name:     document.getElementById('f-name').value,
         org:      document.getElementById('f-org').value,
         rank:     document.getElementById('f-rank').value,
-        tel:      telDigits,
+        tel:      telFormatted,
         email:    document.getElementById('f-email').value,
         question: document.getElementById('f-question').value,
         device:   /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '') ? '모바일' : 'PC'

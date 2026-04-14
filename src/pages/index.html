@@ -364,7 +364,13 @@ extraScripts:
       <div class="forum-registration-inner">
         <h2 class="forum-section-title">사전등록</h2>
 
-        <form id="registrationForm" novalidate>
+        <div class="forum-registration-tabs" role="tablist">
+          <button type="button" class="forum-registration-tab is-active" data-tab="register" role="tab" aria-selected="true">포럼 참가신청</button>
+          <button type="button" class="forum-registration-tab" data-tab="lookup" role="tab" aria-selected="false">참가신청 확인</button>
+        </div>
+
+        <div class="forum-registration-panel" data-panel="register">
+          <form id="registrationForm" novalidate>
           <p class="forum-consent-title">개인정보보호를 위한 이용자 동의사항</p>
           <div class="forum-consent-box">
             <p class="consent-intro">한국금융신문은 귀하의 개인정보를 다음의 목적을 위해 수집 및 활용합니다.</p>
@@ -436,6 +442,51 @@ extraScripts:
             <button type="submit" class="btn-submit">참가신청</button>
           </div>
         </form>
+        </div>
+
+        <div class="forum-registration-panel" data-panel="lookup" hidden>
+          <form id="lookupForm" novalidate>
+            <div class="forum-form-section">
+              <h3>신청인 정보</h3>
+              <div class="forum-form-grid">
+                <div class="forum-form-row">
+                  <div class="forum-form-field">
+                    <label for="lk-name">성명<span class="req">*</span></label>
+                    <input type="text" id="lk-name" placeholder="홍길동" required>
+                  </div>
+                  <div class="forum-form-field" aria-hidden="true"></div>
+                </div>
+                <div class="forum-form-row">
+                  <div class="forum-form-field">
+                    <label for="lk-tel">전화번호<span class="req">*</span></label>
+                    <input type="tel" id="lk-tel" placeholder="010-1234-5678" inputmode="tel" required>
+                  </div>
+                  <div class="forum-form-field" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
+            <div class="forum-form-actions">
+              <button type="submit" class="btn-submit">확인</button>
+            </div>
+          </form>
+
+          <div id="lookupResult" class="forum-lookup-result" hidden>
+            <section class="forum-lookup-section">
+              <h3>신청인 정보</h3>
+              <dl class="forum-lookup-table">
+                <div><dt>성명</dt><dd data-field="name"></dd></div>
+                <div><dt>소속</dt><dd data-field="org"></dd></div>
+                <div><dt>직급</dt><dd data-field="rank"></dd></div>
+                <div><dt>전화번호</dt><dd data-field="tel"></dd></div>
+                <div><dt>이메일</dt><dd data-field="email"></dd></div>
+              </dl>
+            </section>
+            <section class="forum-lookup-section">
+              <h3>사전 질문</h3>
+              <p class="forum-lookup-question" data-field="question"></p>
+            </section>
+          </div>
+        </div>
 
         <p class="forum-form-contact">
           <span class="contact-label">※ 참가신청 관련 문의</span>

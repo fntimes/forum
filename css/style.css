@@ -744,7 +744,100 @@ body { margin: 0; padding: 0; }
   margin: 0 auto;
 }
 .forum-registration .forum-section-title {
-  margin-bottom: 80px;
+  margin-bottom: 60px;
+}
+
+/* ===== Tabs: 참가신청 / 확인 ===== */
+.forum-registration-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 64px;
+}
+.forum-registration-tab {
+  appearance: none;
+  border: none;
+  padding: 16px;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  background: #e5e5e5;
+  color: #9b9b9b;
+  font-family: inherit;
+  transition: background 0.2s, color 0.2s;
+}
+.forum-registration-tab.is-active {
+  background: #111;
+  color: #fff;
+}
+.forum-registration-tab:hover:not(.is-active) {
+  background: #d5d5d5;
+}
+.forum-registration-panel[hidden] { display: none; }
+
+/* 참가신청 확인 패널: 타이틀·필드 가운데 정렬 */
+.forum-registration-panel[data-panel="lookup"] .forum-form-section h3 {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.forum-registration-panel[data-panel="lookup"] .forum-form-grid {
+  max-width: 520px;
+  margin: 0 auto;
+  padding-bottom: 32px;
+}
+.forum-registration-panel[data-panel="lookup"] .forum-form-row {
+  justify-content: center;
+}
+.forum-registration-panel[data-panel="lookup"] .forum-form-field[aria-hidden="true"] {
+  display: none;
+}
+
+/* ===== Lookup result ===== */
+.forum-lookup-result {
+  margin-top: 40px;
+}
+.forum-lookup-section {
+  padding: 36px 0;
+}
+.forum-lookup-section:first-child { padding-top: 0; }
+.forum-lookup-section:last-child { padding-bottom: 0; }
+.forum-lookup-section h3 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #111;
+}
+.forum-lookup-table {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  color: #1a2342;
+  border-bottom: 2px solid #111;
+}
+.forum-lookup-table > div {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  padding: 18px 0;
+  border-bottom: 1px solid #ececec;
+}
+.forum-lookup-table > div:last-child { border-bottom: none; }
+.forum-lookup-table dt {
+  color: #666;
+  font-weight: 500;
+}
+.forum-lookup-table dd {
+  margin: 0;
+  color: #111;
+}
+.forum-lookup-question {
+  margin: 0;
+  padding: 18px 0 48px;
+  font-size: 18px;
+  line-height: 1.75;
+  color: #333;
+  white-space: pre-wrap;
 }
 .forum-consent-title {
   font-size: 20px;

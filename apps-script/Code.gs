@@ -72,12 +72,57 @@ function doPost(e) {
   }
 }
 
-function doGet() {
-  return _json({
+function doGet(e) {
+  var p = (e && e.parameter) || {};
+
+  // ?action=lookup&name=홍길동&tel=01012345678&callback=cb → JSONP 응답
+  if (p.action === 'lookup') {
+    try {
+      var record = _findRecord(p.name || '', p.tel || '');
+      var res = record
+        ? { ok: true, record: record }
+        : { ok: false, error: 'not found' };
+      return _respond(res, p.callback);
+    } catch (err) {
+      console.error(err);
+      return _respond({ ok: false, error: String(err) }, p.callback);
+    }
+  }
+
+  return _respond({
     ok: true,
     service: '2026 한국금융미래포럼 사전등록',
     method: 'POST'
-  });
+  }, p.callback);
+}
+
+function _findRecord(name, tel) {
+  var nameKey = String(name).replace(/\s+/g, '');
+  var telKey  = String(tel).replace(/\D/g, '');
+  if (!nameKey || !telKey) return null;
+
+  var sheet = _getSheet();
+  var lastRow = sheet.getLastRow();
+  if (lastRow < 2) return null;
+
+  // 컬럼: 제출일시, 성명, 소속, 직급, 전화번호, 이메일, 사전질문, 기기
+  var values = sheet.getRange(2, 1, lastRow - 1, 8).getValues();
+  for (var i = values.length - 1; i >= 0; i--) {  // 최신 등록부터 역순 검색
+    var row = values[i];
+    var rowName = String(row[1] || '').replace(/\s+/g, '');
+    var rowTel  = String(row[4] || '').replace(/\D/g, '');
+    if (rowName === nameKey && rowTel === telKey) {
+      return {
+        name:     row[1] || '',
+        org:      row[2] || '',
+        rank:     row[3] || '',
+        tel:      row[4] || '',
+        email:    row[5] || '',
+        question: row[6] || ''
+      };
+    }
+  }
+  return null;
 }
 
 /* ========== 내부 함수 ========== */
@@ -133,5 +178,18 @@ function _sendNotification(p) {
 function _json(obj) {
   return ContentService
     .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+/** callback 파라미터가 있으면 JSONP, 없으면 순수 JSON 으로 응답 */
+function _respond(obj, callback) {
+  var json = JSON.stringify(obj);
+  if (callback && /^[A-Za-z_][A-Za-z0-9_]*$/.test(callback)) {
+    return ContentService
+      .createTextOutput(callback + '(' + json + ')')
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
+  return ContentService
+    .createTextOutput(json)
     .setMimeType(ContentService.MimeType.JSON);
 }
