@@ -106,6 +106,72 @@ document.addEventListener('DOMContentLoaded', function () {
   // Registration form — Google Apps Script 연동 (iframe POST 방식)
   var GAS_URL = 'https://script.google.com/macros/s/AKfycbzMEwBFLbDtrgdgx0CtyYqOiMrcxnmqhukYIS2Iaazr3Fy7Eo3KSjarmZ_jpWjsI6XP/exec';
 
+  // 전화번호 자동 포매팅 — 휴대폰·서울(02)·타 지역·대표번호(15XX) 지원
+  function formatPhone(raw) {
+    var trailingHyphen = /-$/.test(raw || '');
+    var d = (raw || '').replace(/\D/g, '');
+    var out;
+    // 대표번호 15XX/16XX/18XX/19XX (총 8자리)
+    if (d.length >= 1 && d[0] === '1' && d[1] !== '0') {
+      d = d.slice(0, 8);
+      out = d.length <= 4 ? d : d.slice(0, 4) + '-' + d.slice(4);
+    }
+    // 서울(02): 최대 10자리
+    else if (d.indexOf('02') === 0) {
+      d = d.slice(0, 10);
+      if (d.length <= 2) out = d;
+      else if (d.length <= 5) out = d.slice(0, 2) + '-' + d.slice(2);
+      else if (d.length <= 9) out = d.slice(0, 2) + '-' + d.slice(2, d.length - 4) + '-' + d.slice(-4);
+      else out = d.slice(0, 2) + '-' + d.slice(2, 6) + '-' + d.slice(6);
+    }
+    // 기타(010, 031, 070 등): 최대 11자리
+    else {
+      d = d.slice(0, 11);
+      if (d.length < 4) out = d;
+      else if (d.length < 8) out = d.slice(0, 3) + '-' + d.slice(3);
+      else if (d.length <= 10) out = d.slice(0, 3) + '-' + d.slice(3, 6) + '-' + d.slice(6);
+      else out = d.slice(0, 3) + '-' + d.slice(3, 7) + '-' + d.slice(7);
+    }
+    // 사용자가 방금 '-'를 입력한 경우 뒤에 유지 (다음 자릿수 입력을 위한 힌트)
+    if (trailingHyphen && out && !/-$/.test(out)) out += '-';
+    return out;
+  }
+  var telInput = document.getElementById('f-tel');
+  if (telInput) {
+    telInput.setAttribute('inputmode', 'tel');
+    telInput.addEventListener('input', function() {
+      var selBefore = this.selectionStart;
+      var prev = this.value;
+      var prevBefore = prev.slice(0, selBefore);
+      var digitsBefore = prevBefore.replace(/\D/g, '').length;
+      // 사용자가 방금 '-'를 입력했다면 커서를 하이픈 뒤로 보내야 함
+      var justTypedHyphen = selBefore > 0 && prev[selBefore - 1] === '-';
+
+      var formatted = formatPhone(prev);
+      this.value = formatted;
+
+      var totalDigits = formatted.replace(/\D/g, '').length;
+      var newPos;
+      if (justTypedHyphen && digitsBefore === totalDigits && /-$/.test(formatted)) {
+        // 끝에 '-'가 유지된 경우 커서를 맨 뒤로
+        newPos = formatted.length;
+      } else {
+        var count = 0;
+        newPos = formatted.length;
+        for (var i = 0; i < formatted.length; i++) {
+          if (/\d/.test(formatted[i])) count++;
+          if (count === digitsBefore) { newPos = i + 1; break; }
+        }
+        // 커서가 하이픈 바로 앞인데 사용자가 방금 하이픈을 쳤다면 하이픈 뒤로 건너뛰기
+        if (justTypedHyphen && formatted[newPos] === '-') newPos++;
+      }
+      this.selectionStart = this.selectionEnd = newPos;
+    });
+    telInput.addEventListener('blur', function() {
+      this.value = this.value.replace(/-+$/, '');
+    });
+  }
+
   var regForm = document.getElementById('registrationForm');
   if (regForm) {
     regForm.addEventListener('reset', function() {
@@ -146,12 +212,22 @@ document.addEventListener('DOMContentLoaded', function () {
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span class="spinner"></span>제출 중...';
 
+      var telRaw = document.getElementById('f-tel').value;
+      var telDigits = telRaw.replace(/\D/g, '');
+      if (telDigits.length < 8 || telDigits.length > 11) {
+        alert('전화번호를 올바르게 입력해주세요.');
+        document.getElementById('f-tel').focus();
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        return;
+      }
+
       var data = {
         formType: '포럼사전등록',
         name:     document.getElementById('f-name').value,
         org:      document.getElementById('f-org').value,
         rank:     document.getElementById('f-rank').value,
-        tel:      document.getElementById('f-tel').value,
+        tel:      telDigits,
         email:    document.getElementById('f-email').value,
         question: document.getElementById('f-question').value,
         device:   /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '') ? '모바일' : 'PC'
