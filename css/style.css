@@ -1238,7 +1238,7 @@ body.forum-modal-open {
     align-items: center;
   }
   .forum-modal-left { flex: 0 0 auto; }
-  .forum-modal-photo { width: 150px; height: 195px; }
+  .forum-modal-photo { width: 200px; height: 260px; }
   .forum-modal-photo img { border-radius: 6px; }
   .forum-modal-right {
     align-items: center;
