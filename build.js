@@ -54,15 +54,20 @@ function injectGnbActive(headerHtml, gnbActive, megaActiveHref) {
 function buildPage(pagePath) {
   const { meta, body } = parsePage(pagePath);
 
-  let header = injectGnbActive(partials['header'], meta.gnbActive, meta.megaActiveHref);
+  let html;
+  if (meta.raw === 'true') {
+    html = body;
+  } else {
+    let header = injectGnbActive(partials['header'], meta.gnbActive, meta.megaActiveHref);
 
-  let html = partials['head']
-    + '\n' + header
-    + '\n' + partials['mobile-nav']
-    + (meta.noHero === 'true' ? '' : '\n' + partials['hero'])
-    + '\n' + body
-    + '\n' + partials['footer']
-    + '\n' + partials['scripts'];
+    html = partials['head']
+      + '\n' + header
+      + '\n' + partials['mobile-nav']
+      + (meta.noHero === 'true' ? '' : '\n' + partials['hero'])
+      + '\n' + body
+      + '\n' + partials['footer']
+      + '\n' + partials['scripts'];
+  }
 
   // Replace all template variables
   html = html.replace(/\{\{title\}\}/g, meta.title || '');
